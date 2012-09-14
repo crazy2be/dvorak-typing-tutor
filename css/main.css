@@ -1,0 +1,54 @@
+body {
+	background-color: #555;
+	color: #ccc;
+}
+.current {
+	background-color: #cc0;
+	color: #000;
+}
+
+.failed {
+	background-color: #d00;
+}
+
+.current.failed {
+	background-color: #f00;
+}
+
+#wrapper {
+	margin-top: 5em;
+	text-align: center;
+	font-size: 36;
+}
+
+#stats {
+	color: #999;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	font-size: 0;
+}
+
+#stats li {
+	display: inline-block;
+	font-size: 10;
+}
+
+#stats-speed {
+	width: 20%;
+}
+
+#stats-title {
+	width: 60%;
+	text-align: center;
+}
+
+#stats-errors {
+	color: #fbb;
+	width: 20%;
+	text-align: right;
+}
+
+body {
+	/*font-family: sans-serif;*/
+}
