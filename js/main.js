@@ -20,8 +20,6 @@ var dict = {
 
 var lessons = {
 	data: ["uh", "et", "on", "as", "id", "pg", ".c", ",r", ";l", "yf", "km", "jw", "qv", "'z", "xb"],
-	next: function() {
-	},
 	load: function(num) {
 		letters = "";
 		var index = Math.floor(num / 2);
@@ -36,11 +34,14 @@ var lessons = {
 		$.each('.,;', function (i, ch) {
 			if (letters.indexOf(ch) != -1) punctuation = punctuation.concat([ch + ' ', ' ']);
 		});
+		
+		var lettersArray = letters.split("");
+		var title = num / 2 + ': "' + lettersArray[0] + '", "' + lettersArray[1] + '"';
 		return {
-			letters: letters.split(''),
+			letters: lettersArray,
 			punctuation: punctuation,
-			words: dict.wordsWith(letters.split('')),
-			title: num / 2 + ': ' + lessons.data[index]
+			words: dict.wordsWith(lettersArray),
+			title: title
 		};
 	}
 };
@@ -51,14 +52,14 @@ function loadLesson(num) {
 	$('#stats-errors').text('');
 	console.log(lesson);
 
-	var str = '';
+	var sentence = '';
 	for (var i = 0; i < 8; i++) {
-		str += lesson.words.random() + lesson.punctuation.random();
+		sentence += lesson.words.random() + lesson.punctuation.random();
 	}
 
 	var el = $('#current-lesson');
 	el.children().remove();
-	$.each(str, function (i, ch) {
+	$.each(sentence, function (i, ch) {
 		// We use nbsp here so that the last character on the line is shown.
 		if (ch == " ") ch = String.fromCharCode(160);
 		$("<span>").text(ch).appendTo(el);
@@ -79,7 +80,7 @@ function loadLesson(num) {
 			if (!cur.hasClass('failed')) {
 				errors++;
 				cur.addClass('failed');
-				percent = errors / str.length * 100;
+				percent = errors / sentence.length * 100;
 				$('#stats-errors').text(percent.toFixed(0) + '%');
 			}
 			return;
@@ -101,7 +102,7 @@ function loadLesson(num) {
 			var wpm = 60000 / avg;
 			$('#stats-speed').text(wpm.toFixed(0) + ' wpm');
 			console.log(total, count, avg, errors);
-			if (wpm < 30 || errors / str.length > 0.05) return loadLesson(num);
+			if (wpm < 30 || errors / sentence.length > 0.05) return loadLesson(num);
 			else return loadLesson(num + 1);
 		} else {
 			cur.removeClass('current').next().addClass('current');
