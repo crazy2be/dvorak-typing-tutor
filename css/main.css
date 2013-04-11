@@ -31,7 +31,8 @@ body {
 
 #stats li {
 	display: inline-block;
-	font-size: 30;
+	font-size: 15;
+	font-family: sans-serif;
 }
 
 #stats-speed {

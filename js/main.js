@@ -1,4 +1,4 @@
-var global = {
+var charCodes = {
 	space: 32,
 	nbsp: 160
 }
@@ -26,21 +26,15 @@ var dict = {
 var lessons = {
 	data: ["uh", "et", "on", "as", "id", "pg", ".c", ",r", ";l", "yf", "km", "jw", "qv", "'z", "xb"],
 
-	/**
-	 * Examples: load(0.5); load(14); load(1);
-	 */
+	// Examples: load(0.5); load(14); load(1);
 	load: function(num) {
 		// All letters up to this lesson.
 		var cumulative = [];
-		// Letters specific to this lesson.
-		var current = [];
 
 		var index = Math.floor(num);
-		current = lessons.data[index].split("");
 
-		// Check for decimals.
 		if (num % 1 == 0) {
-			cumulative = current;
+			cumulative = lessons.data[index].split("");
 		} else {
 			for (var i = 0; i < index + 1; i++) {
 				cumulative = cumulative.concat(lessons.data[i].split(""));
@@ -53,7 +47,7 @@ var lessons = {
 				punctuation = punctuation.concat([ch + ' ', ' ']);
 			}
 		});
-		
+
 		var title = num + ': "' + current.join('", "') + '"';
 		return {
 			letters: cumulative,
@@ -79,7 +73,7 @@ function loadLesson(num) {
 	el.children().remove();
 	$.each(sentence, function (i, ch) {
 		// We use nbsp here so that the last character on the line is shown.
-		if (ch == " ") ch = String.fromCharCode(global.nbsp);
+		if (ch == " ") ch = String.fromCharCode(charCodes.nbsp);
 		$("<span>").text(ch).appendTo(el);
 	});
 	el.children(':first-child').addClass('current');
@@ -91,7 +85,7 @@ function loadLesson(num) {
 	$('body').on('keypress.dtt', function (ev) {
 		if (prevts == 0) prevts = new Date();
 
-		var typed = String.fromCharCode(ev.which == global.space ? global.nbsp : ev.which);
+		var typed = String.fromCharCode(ev.which == charCodes.space ? charCodes.nbsp : ev.which);
 		var cur = $('#current-lesson .current');
 		if (cur.text() != typed) {
 			if (!cur.hasClass('failed')) {
