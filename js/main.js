@@ -32,10 +32,9 @@ var lessons = {
 		var cumulative = [];
 
 		var index = Math.floor(num);
-		var current = lessons.data[index].split("");
 
 		if (num % 1 == 0) {
-			cumulative = current;
+			cumulative = lessons.data[index].split("");
 		} else {
 			for (var i = 0; i < index + 1; i++) {
 				cumulative = cumulative.concat(lessons.data[i].split(""));
@@ -49,7 +48,8 @@ var lessons = {
 			}
 		});
 
-		var title = num + ': "' + current.join('", "') + '"';
+		var name = lessons.data[index];
+		var title = num + ': ' + name;
 		return {
 			letters: cumulative,
 			punctuation: punctuation,
