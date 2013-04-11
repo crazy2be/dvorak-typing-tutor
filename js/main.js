@@ -32,9 +32,10 @@ var lessons = {
 		var cumulative = [];
 
 		var index = Math.floor(num);
+		var current = lessons.data[index].split("");
 
 		if (num % 1 == 0) {
-			cumulative = lessons.data[index].split("");
+			cumulative = current;
 		} else {
 			for (var i = 0; i < index + 1; i++) {
 				cumulative = cumulative.concat(lessons.data[i].split(""));
